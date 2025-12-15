@@ -4,7 +4,12 @@ require("dotenv").config();
 const app = express();
 app.use(express.json());
 mongoose.connect(process.env.uri )
-  .then(() => console.log("MongoDB connected"))
+  .then(() =>{ console.log("MongoDB connected")
+    const PORT = process.env.port || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
+  })
   .catch(err => console.error(err));
 
   const employeeSchema = new mongoose.Schema({
@@ -52,7 +57,3 @@ app.get("/employees/:id", async (req, res) => {
   }
 });
 
-const PORT = process.env.port || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
